@@ -11,3 +11,5 @@ db.sqlite3
 # Excluding the settings file
 settings.ini
 
+# Excluding development requirements.txt file
+requirements-local.txt
