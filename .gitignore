@@ -1,0 +1,13 @@
+### SASH Template
+# Excluding the compiled python files
+*.pyc
+
+# Excluding the Database files
+db.sqlite3
+
+# Excluding the PyCharm Files
+.idea/
+
+# Excluding the settings file
+settings.ini
+
