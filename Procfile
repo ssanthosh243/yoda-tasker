@@ -1,0 +1,1 @@
+web: gunicorn yoda.wsgi --log-file -
