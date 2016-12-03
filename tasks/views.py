@@ -2,12 +2,17 @@ from django.http import HttpResponse
 from .models import *
 import json
 import requests
+import paramiko
 
 # Create your views here.
 
 
 def home(request):
-    text = '''<h1><span style="color: #ff6600;"><em>Welcome to Yoda</em></span></h1>'''
+    text = '''<h1 style="text-align: center;"><span style="color: #ff6600;"><em>Welcome to Yoda Tasker<br /></em></span></h1>
+<p style="text-align: center;">&nbsp;</p>
+<h2 style="text-align: center;"><span style="text-decoration: underline;"><span style="color: #000080;"><em>Useful Links:</em></span></span></h2>
+<p style="text-align: center;"><span style="color: #800080;"><em><a style="color: #800080;" title="http://www.jsoneditoronline.org/" href="http://www.jsoneditoronline.org/" target="_blank">http://www.jsoneditoronline.org/</a></em></span></p>
+<p style="text-align: center;"><span style="color: #800080;"><em><a style="color: #800080;" title="https://cron-job.org/en/members/" href="https://cron-job.org/en/members/" target="_blank">https://cron-job.org/en/members/</a></em></span></p>'''
     return HttpResponse(text)
 
 
@@ -50,3 +55,25 @@ def apitask(request, callsign):
         pass
 
     return HttpResponse(data, content_type='application/json')
+
+
+def shelltask(request, callsign):
+    a = ShellTask.objects.get(callsign=callsign)
+    b = Host.objects.get(id=a.host_id)
+
+    try:
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(a.host, username=b.username, password=b.password)
+        stdin, stdout, stderr = ssh.exec_command(a.command)
+
+        data = stdout
+        print stdin, stderr
+
+        ssh.close()
+        pass
+    except Exception, e:
+        print (e)
+        pass
+
+    return HttpResponse(data)

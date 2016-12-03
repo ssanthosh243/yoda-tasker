@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', tasks.views.home, name='Home'),
     url(r'^api/(.*)/', tasks.views.apitask, name='API Task'),
+    url(r'^shell/(.*)/', tasks.views.shelltask, name='Shell Task'),
 ]
