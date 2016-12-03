@@ -69,7 +69,7 @@ def shelltask(request, callsign):
         ssh.connect(str(a.host), username=b.username, password=b.password)
         stdin, stdout, stderr = ssh.exec_command(a.command)
 
-        data = stdout
+        data = stdout.readlines()
         print stdin, stderr
 
         ssh.close()
