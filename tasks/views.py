@@ -8,7 +8,8 @@ import paramiko
 
 
 def home(request):
-    text = '''<h1 style="text-align: center;"><span style="color: #ff6600;"><em>Welcome to Yoda Tasker<br /></em></span></h1>
+    text = '''<p style="text-align: center;">&nbsp;</p>
+<h1 style="text-align: center;"><span style="color: #ff6600;"><em>Welcome to Yoda Tasker<br /></em></span></h1>
 <p style="text-align: center;">&nbsp;</p>
 <h2 style="text-align: center;"><span style="text-decoration: underline;"><span style="color: #000080;"><em>Useful Links:</em></span></span></h2>
 <p style="text-align: center;"><span style="color: #800080;"><em><a style="color: #800080;" title="http://www.jsoneditoronline.org/" href="http://www.jsoneditoronline.org/" target="_blank">http://www.jsoneditoronline.org/</a></em></span></p>
@@ -60,6 +61,7 @@ def apitask(request, callsign):
 def shelltask(request, callsign):
     a = ShellTask.objects.get(callsign=callsign)
     b = Host.objects.get(id=a.host_id)
+    data = ''
 
     try:
         ssh = paramiko.SSHClient()
