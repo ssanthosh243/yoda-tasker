@@ -38,7 +38,8 @@ def apitask(request, callsign):
 
         r = requests.post(url, data=payload, headers=headers)
         if r.status_code == 200:
-            data = json.dumps(r.json())
+            # data = json.dumps(r.json())
+            data = json.dumps({"success": "Command executed successfully !!!"})
             pass
         else:
             data = dict()
