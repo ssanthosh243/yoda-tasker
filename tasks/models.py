@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
-
 from django.db import models
+import jsonfield
 
 # Create your models here.
 
@@ -11,11 +11,11 @@ class ApiTask(models.Model):
         (2, 'POST')
     )
 
-    callsign = models.CharField(max_length=100, blank=False, null=False)
+    callsign = models.CharField(max_length=100, blank=False, null=False, unique=True)
     method = models.IntegerField(choices=METHOD, default=1)
     url = models.URLField(blank=False, null=False)
-    data = models.CharField(verbose_name='Data for POST', max_length=1000, blank=True, null=True)
-    headers = models.CharField(max_length=1000, blank=True, null=True)
+    data = jsonfield.JSONField(verbose_name='Data for POST', blank=True, null=True)
+    headers = jsonfield.JSONField(blank=True, null=True)
 
     class Meta:
         db_table = 'API Tasks'
